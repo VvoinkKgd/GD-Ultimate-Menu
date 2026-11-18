@@ -1,0 +1,28 @@
+```yaml
+name: Build GD Ultimate Menu
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+
+      - name: Build Geode mod
+        uses: geode-sdk/build-geode-mod@main
+        id: build
+        with:
+          target: Win64
+          path: ./default
+
+      - name: Upload mod
+        uses: actions/upload-artifact@v4
+        with:
+          name: GD-Ultimate-Menu
+          path: ${{ steps.build.outputs.build-output }}
+```
